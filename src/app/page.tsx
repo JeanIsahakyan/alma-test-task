@@ -13,6 +13,9 @@ export default function Home() {
         </div>
         <div className="mt-4">
           <h1 className="text-2xl my-2">Dashboard</h1>
+          <div>
+            emails: jeanisahakyan@gmail.com, shuo@tryalma.ai, admin@gmail.com
+          </div>
           <Link href="/dashboard">
             <Button className="mt-2">Open Dashboard</Button>
           </Link>
