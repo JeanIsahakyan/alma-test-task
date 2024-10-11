@@ -9,6 +9,8 @@ npm i
 npm run dev
 ```
 
+*Works only on local machine 
+
 ## Key Features of Using shadcn/ui with TailwindCSS for Design
 - Pre-built & Customizable Components: shadcn/ui provides a collection of ready-to-use components that accelerate development and can be easily customized with TailwindCSS.
 - Seamless Tailwind Integration: TailwindCSS enables a utility-first approach to styling, ensuring a consistent, responsive, and highly customizable design system.
