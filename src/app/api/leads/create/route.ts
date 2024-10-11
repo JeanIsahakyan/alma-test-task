@@ -6,11 +6,11 @@ import mime from 'mime';
 
 export const POST = async (request: NextRequest) => {
   const formData = await request.formData();
-  const rawData =  Object.fromEntries(formData);
-  if (rawData.visas) {
-    rawData.visas = rawData.visas?.toString()?.split(',');
-  }
-  const parsed = Leads.formSchema.safeParse(rawData);
+  const rawData = Object.fromEntries(formData);
+  const parsed = Leads.formSchema.safeParse({
+    ...rawData,
+    visas: rawData.visas?.toString().split(','),
+  });
   if (!parsed.success) {
     return NextResponse.json({ status: "error", message: parsed.error.message });
   }
@@ -27,8 +27,9 @@ export const POST = async (request: NextRequest) => {
   const uploadDir = join(process.cwd(), "public", relativeUploadDir);
   try {
     await stat(uploadDir);
-  } catch (e: Error) {
-    if (e.code === "ENOENT") {
+    /* eslint-disable @typescript-eslint/no-explicit-any */
+  } catch (e: any) {
+    if (e?.code === "ENOENT") {
       // This is for checking the directory is exist (ENOENT : Error No Entry)
       await mkdir(uploadDir, { recursive: true });
     } else {
@@ -57,7 +58,7 @@ export const POST = async (request: NextRequest) => {
       website: lead.website,
       citizenship: lead.citizenship,
       resume: fileUrl,
-      visas: lead.visas,
+      visas: lead.visas.toString()?.split(','),
       message: lead.message,
       submit_date: new Date().toUTCString(),
       status: 'PENDING',

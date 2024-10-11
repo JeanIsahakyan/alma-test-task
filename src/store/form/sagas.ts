@@ -15,7 +15,11 @@ function* addLeadWorker(action: PayloadAction<z.infer<typeof Leads.formSchema>>)
     yield put(formActions.setForm({
       loading: true,
     }));
-    const response: {status: string; lead: Lead, message?: string;} = yield call(apiRequest, `leads/create`, action.payload);
+    const params = {
+      ...action.payload,
+      visas: action.payload.visas.join(','),
+    };
+    const response: {status: string; lead: Lead, message?: string;} = yield call(apiRequest, `leads/create`, params);
     if (response.status === 'success') {
       yield put(formActions.setForm({
         loading: false,
@@ -27,11 +31,13 @@ function* addLeadWorker(action: PayloadAction<z.infer<typeof Leads.formSchema>>)
         error: response.message,
       }));
     }
-  } catch (error: Error) {
-    yield put(formActions.setForm({
-      loading: false,
-      error: error.message,
-    }));
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      yield put(formActions.setForm({
+        loading: false,
+        error: err.message,
+      }));
+    }
   }
 }
 

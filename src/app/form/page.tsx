@@ -188,7 +188,7 @@ export default function Page() {
                 <FormItem>
                   <FormLabel>Resume</FormLabel>
                   <FormControl>
-                    <Input type="file" onChange={(e) => field.onChange(e?.currentTarget?.files[0])} accept="*.pdf,*.jpg,*.png"/>
+                    <Input type="file" onChange={(e) => field.onChange(e?.currentTarget?.files ? e?.currentTarget?.files[0] : undefined)} accept="*.pdf,*.jpg,*.png"/>
                   </FormControl>
                   <FormMessage/>
                 </FormItem>

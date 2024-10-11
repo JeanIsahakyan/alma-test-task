@@ -11,8 +11,10 @@ function* loadLeadsWorker() {
     if (response.status === 'success') {
       yield put(leadsActions.setLeads(response.leads));
     }
-  } catch (error) {
-    alert(error.message);
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      alert(err.message);
+    }
   }
 }
 
@@ -34,8 +36,10 @@ function* reachedOutWorker(action: PayloadAction<number>) {
     } else if (response.message) {
       alert(response.message);
     }
-  } catch (error) {
-    alert(error.message);
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      alert(err.message);
+    }
   }
 }
 

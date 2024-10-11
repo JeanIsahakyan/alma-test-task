@@ -20,9 +20,9 @@ class LeadsInternal {
 
   public setLead = (lead: Lead) => {
     if (!lead.hasOwnProperty('id')) {
-     lead.id = Object.values(this.list).length;
+     lead.id = this.getLeads().length;
     }
-    this.list[lead.id] = lead;
+    this.list[lead.id!] = lead;
   }
 
   public getLeads = (): Lead[] => Object.values(this.list);

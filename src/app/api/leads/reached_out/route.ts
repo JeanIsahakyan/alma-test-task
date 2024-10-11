@@ -10,7 +10,7 @@ export const POST = auth(async (request) => {
   if (!formData.has('id')) {
     return NextResponse.json({ status: "error", message: 'Lead not found' });
   }
-  const id = formData.get('id');
+  const id = formData.get('id') as unknown as number;
   const lead = Leads.getLead(id);
   if (!lead) {
     return NextResponse.json({ status: "error", message: 'Lead not found' });

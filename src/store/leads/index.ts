@@ -2,7 +2,6 @@ import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../rootReducer';
 import { LeadsState, LocalExtendedLead, LocalLead } from './types';
 import { useSelector } from 'react-redux';
-import { Lead } from '@/services/leads';
 
 const initialState: LeadsState = {
 };
@@ -11,15 +10,16 @@ export const { actions: leadsActions, reducer: leadsReducer } = createSlice({
   name: 'leads',
   initialState,
   reducers: {
+    /* eslint-disable @typescript-eslint/no-unused-vars */
     reachedOut(state, action: PayloadAction<number>) {},
     loadLeads() {},
     setLead(state, action: PayloadAction<LocalExtendedLead>) {
       const lead = action.payload;
-      state[lead.id] = lead;
+      state[lead.id!] = lead;
     },
     setLeads(state, action: PayloadAction<LocalExtendedLead[]>) {
       action.payload.forEach((lead) => {
-        state[lead.id] = lead;
+        state[lead.id!] = lead;
       });
     },
   },
@@ -51,7 +51,7 @@ export const useLeadSelector = (leadId: number): LocalLead => {
 };
 
 
-export const useLeadsListSelector = (): Lead[] => {
+export const useLeadsListSelector = (): LocalLead[] => {
  return useSelector((state: RootState) => leadsListSelector(state));
 };
 

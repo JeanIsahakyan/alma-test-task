@@ -29,7 +29,6 @@ import { store } from '@/store/store';
 import { leadsActions, useLeadsListSelector } from '@/store/leads';
 import { LocalLead } from '@/store/leads/types';
 import Link from 'next/link';
-import { original } from 'immer';
 
 
 export const columns: ColumnDef<LocalLead>[] = [
@@ -122,7 +121,7 @@ export const columns: ColumnDef<LocalLead>[] = [
                 </Button>
               )}
               {!row.original.loading && (
-                <Button size="sm" variant="secondary" onClick={() => store.dispatch(leadsActions.reachedOut(row.original.id))}>
+                <Button size="sm" variant="secondary" onClick={() => store.dispatch(leadsActions.reachedOut(row.original.id!))}>
                   Reached out
                 </Button>
               )}
@@ -179,7 +178,7 @@ export function DashboardTable() {
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
+            <Button variant="outline" className="ml-1">
               Status <ChevronDownIcon className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
@@ -192,8 +191,8 @@ export function DashboardTable() {
               <DropdownMenuCheckboxItem
                 key={item.status}
                 className="capitalize"
-                checked={table.getColumn("name")?.getFilterValue() === item.status}
-                onCheckedChange={(value) => {
+                checked={table.getColumn("status")?.getFilterValue() === item.status}
+                onCheckedChange={() => {
                   const status = item.status !== 'NONE' ? item.status : '';
                   table.getColumn("status")?.setFilterValue(status);
                 }}

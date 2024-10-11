@@ -12,6 +12,7 @@ export const { actions: formActions, reducer: formReducer } = createSlice({
   name: 'form',
   initialState,
   reducers: {
+    /* eslint-disable @typescript-eslint/no-unused-vars */
     addLeadWorker(state, action: PayloadAction<z.infer<typeof Leads.formSchema>>) {},
     setForm(state, action: PayloadAction<FormState>) {
       const form = action.payload;
